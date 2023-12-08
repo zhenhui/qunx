@@ -59,7 +59,7 @@
 .large-button:active {
     background: #DCDCDC;
 }
-#responseDisplay {
+.responseDisplay {
     margin-top: 20px;
     border: 1px solid #D9D9D9;
     padding: 10px;
@@ -67,7 +67,7 @@
     overflow: auto;
     background-color: #fafafa;
     border-radius: 12px;
-    color: rgba(0,0,0,0.45);
+    color: rgba(0,0,0,0.65);
     overflow-y: scroll;
 }
 #sendButton {

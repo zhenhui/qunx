@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>查询页面</title>
+    <link rel="stylesheet" type="text/css" href="yutang.css">
+</head>
+<body  style="background-color: #335986;">
+    <h1 style="color: #fff;margin: 12px 24px;">Token查询</h1>
+    <form action="/your-submission-url" method="post"  class="mian1"  style="padding: 20px;" onsubmit="handleSubmit(event)">
+        <p>请输入TOKEN:</p>
+        <textarea textarea id="paragraph" name="paragraph" rows="4" cols="50"class="large-input" style="height: 8vh;"></textarea>
+        <p>请选择查询类型：</p>
+        <input type="radio" id="developer-info" name="query-type" value="developer-info">
+        <label for="developer-info">查询token开发者信息</label><br>
+        <input type="radio" id="authorized-account" name="query-type" value="authorized-account">
+        <label for="authorized-account">查询授权账户</label><br>
+        <input type="radio" id="token-permissions" name="query-type" value="token-permissions">
+        <label for="token-permissions">查询token权限</label><br>
+        <input type="radio" id="query-bm" name="query-type" value="query-bm">
+        <label for="query-bm">查询BM</label><br>
+        <input type="submit" value="提交" id="sendButton" style="display: none;">
+        <div id="info" style="white-space: pre-wrap;height: auto" class="responseDisplay" >返回的信息会显示在这里</div>
+    </form>
+    <script src="token.js"></script>
+</body>
+</html>
