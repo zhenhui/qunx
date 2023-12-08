@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="tool/yutang.css">
+    <title>主页解析页面</title>
+</head>
+<body style="background-color: #335986;">
+    <h1 style="color: #fff;margin: 12px 24px;">装修主页</h1>
+    <div class="mian1">
+        <div class="center">
+            <textarea id="paragraphInput" class="large-input1" placeholder="请粘贴源内容"></textarea>
+            <br>
+            <button id="analyzeButton" class="large-button" onclick="processText()">开始解析</button>
+        </div>
+    </div>
+        <div id="popup">
+            <textarea id="resultInput" class="large-input"></textarea>
+            <br>
+            <div class="in-group">
+                <div class="bu-group">
+                    <button id="closeButton" onclick="togglePopup()">关闭</button>
+                    <button id="copyButton" onclick="copyText()">复制</button>
+                </div>
+                <button id="sendButton" onclick="sendData()">发送当前内容给鱼塘</button>
+            </div>
+            <div id="responseDisplay">
+                <!-- 接口返回信息将在这里显示 -->
+            </div>
+        </div>
+        <script src="tool/zx.js"></script>
+</body>
+</html>
