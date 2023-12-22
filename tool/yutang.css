@@ -100,3 +100,27 @@
 .bu-group button:active {
     background: #DCDCDC;
 }
+
+.links {
+    display: flex; /* 横向排列链接 */
+    justify-content: flex-end; /* 右对齐 */
+    align-items: center; /* 垂直居中 */
+    margin-left: 24px; /* 与标题的间距 */
+    min-width: 348px;
+}
+
+#header-container {
+    display: flex; /* 让标题和链接在同一行展示 */
+    align-items: center; /* 垂直居中对齐 */
+    justify-content: space-between; /* 使标题和链接左右两边对齐 */
+}
+.link {
+    margin-right: 12px;
+    color: #FFF;
+    text-decoration: none;
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+.link:hover {
+    background-color: rgba(0,0,0,0.2);
+}
