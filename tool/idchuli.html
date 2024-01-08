@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Content Formatter</title>
+    <style>
+        .center {
+            text-align: center;
+            padding: 0 20px;
+        }
+        .in-group {
+            display: flex; 
+            justify-content: space-between;
+        }
+        #popup {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            border: 1px solid #D9D9D9;
+            padding: 20px;
+            background-color: white;
+            z-index: 1000; /* 确保弹窗在最前面 */
+            width: 80%; /* 增大弹窗大小 */
+            border-radius: 12px;
+            box-shadow: 0px 2.767px 2.214px 0px rgba(0, 0, 0, 0.02), 0px 6.65px 5.32px 0px rgba(0, 0, 0, 0.03), 0px 12.522px 10.017px 0px rgba(0, 0, 0, 0.04), 0px 22.336px 17.869px 0px rgba(0, 0, 0, 0.04), 0px 41.778px 33.422px 0px rgba(0, 0, 0, 0.05), 0px 100px 80px 0px rgba(0, 0, 0, 0.07);
+        }
+        .large-input1 {
+            width: 100%;
+            height: 80vh;
+            box-sizing: border-box;
+            padding: 10px;
+            border: 1px solid #D9D9D9;
+            background-color: #FAFAFA; 
+            border-radius: 12px;
+        }
+        .large-input {
+            width: 100%;
+            box-sizing: border-box;
+            height: 30vh;
+            padding: 10px;
+            border: 1px solid #D9D9D9;
+            background-color: #FAFAFA; 
+            border-radius: 12px;
+        }
+        .large-button {
+            width: 100%;
+            height: 50px;
+            font-size: large;
+            border-radius: 12px;
+            background: #3D91F2;
+            border: 0;
+            color: #fff;
+            margin-top: 10px;
+            /* drop-shadow / button-primary */
+            box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.04);
+        }
+        .mian1 {
+            max-width: 800px;
+            margin: auto;
+            background-color: aliceblue;
+            margin: 0 auto;
+            padding: 20px 20px;
+            border-radius: 20px;
+        }
+        .large-button:active {
+            background: #2B84EC;
+        }
+        .responseDisplay {
+            margin-top: 20px;
+            border: 1px solid #D9D9D9;
+            padding: 10px;
+            height: 100px;
+            overflow: auto;
+            background-color: #fafafa;
+            border-radius: 12px;
+            color: rgba(0,0,0,0.65);
+            overflow-y: scroll;
+        }
+        #sendButton, .sendButton{
+            width: 200px;
+            height: 45px;
+            font-size: large;
+            border-radius: 12px;
+            background: #3D91F2;
+            border: 0;
+            color: #fff;
+            /* drop-shadow / button-primary */
+            box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.04);
+            vertical-align: top
+        }
+        #sendButton:active {
+            background: #2B80E1;
+        }
+        .sendButton:active {
+            background: #2B80E1;
+        }
+        .bu-group button {
+            height: 45px;
+            border-radius: 12px;
+            border: 1px solid #D9D9D9;
+            background: #FFF;
+            padding: 0 40px;
+            margin-right: 12px;
+            box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.04);
+        }
+        .bu-group button:active {
+            background: #DCDCDC;
+        }
+
+        .links {
+            display: flex; /* 横向排列链接 */
+            justify-content: flex-end; /* 右对齐 */
+            align-items: center; /* 垂直居中 */
+            margin-left: 24px; /* 与标题的间距 */
+            min-width: 348px;
+        }
+
+        #header-container {
+            display: flex; /* 让标题和链接在同一行展示 */
+            align-items: center; /* 垂直居中对齐 */
+            justify-content: space-between; /* 使标题和链接左右两边对齐 */
+        }
+        .link {
+            margin-right: 12px;
+            color: #FFF;
+            text-decoration: none;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+        .link:hover {
+            background-color: rgba(0,0,0,0.2);
+        }
+        p {
+            text-align: center;
+        }
+        input {
+            padding: 0 10px;
+        }
+    </style>
+</head>
+<body style="background-color: #335986;">
+    <h1 style="color: #fff;margin: 32px 32px;display: block;text-align: center;">ID格式化工具</h1>
+    <div class="mian1">
+        <textarea id="inputArea" placeholder="请输入内容" class="large-input"></textarea><br>
+        <input type="radio" id="comma" name="separator" value=",">
+        <label for="comma">逗号隔开</label>
+        <input type="radio" id="space" name="separator" value=" ">
+        <label for="space">空格隔开</label>
+        <input type="radio" id="newline" name="separator" value="\n">
+        <label for="newline">回车隔开</label><br>
+        <button onclick="formatContent()" class="large-button">提交</button>
+        <button onclick="copyToClipboard()" class="large-button">复制</button><br>
+        <textarea id="outputArea" readonly  class="large-input"></textarea>
+    </div>
+    <script>
+        function formatContent() {
+            const input = document.getElementById('inputArea').value;
+            const separatorRadio = document.querySelector('input[name="separator"]:checked');
+            if (!separatorRadio) {
+                document.getElementById('outputArea').value = "请先选择一种输出格式";
+                return;
+            }
+            let separator = separatorRadio.value;
+            if (separator === "newline") {
+                separator = '\n';
+            }
+            const formattedContent = input.split(/[\s,，]+/).join(separator);
+            document.getElementById('outputArea').value = formattedContent;
+        }
+
+        function copyToClipboard() {
+            const outputArea = document.getElementById('outputArea');
+            outputArea.select();
+            document.execCommand('copy');
+        }
+
+    </script>
+</body>
+</html>

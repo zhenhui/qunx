@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Facebook ID 查询</title>
+    <script src="script.js"></script>
+    <style>
+        .center {
+            text-align: center;
+            padding: 0 20px;
+        }
+        .in-group {
+            display: flex; 
+            justify-content: space-between;
+        }
+        #popup {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            border: 1px solid #D9D9D9;
+            padding: 20px;
+            background-color: white;
+            z-index: 1000; /* 确保弹窗在最前面 */
+            width: 80%; /* 增大弹窗大小 */
+            border-radius: 12px;
+            box-shadow: 0px 2.767px 2.214px 0px rgba(0, 0, 0, 0.02), 0px 6.65px 5.32px 0px rgba(0, 0, 0, 0.03), 0px 12.522px 10.017px 0px rgba(0, 0, 0, 0.04), 0px 22.336px 17.869px 0px rgba(0, 0, 0, 0.04), 0px 41.778px 33.422px 0px rgba(0, 0, 0, 0.05), 0px 100px 80px 0px rgba(0, 0, 0, 0.07);
+        }
+        .large-input1 {
+            width: 100%;
+            height: 80vh;
+            box-sizing: border-box;
+            padding: 10px;
+            border: 1px solid #D9D9D9;
+            background-color: #FAFAFA; 
+            border-radius: 12px;
+        }
+        .large-input {
+            width: 100%;
+            box-sizing: border-box;
+            height: 60vh;
+            padding: 10px;
+            border: 1px solid #D9D9D9;
+            background-color: #FAFAFA; 
+            border-radius: 12px;
+        }
+        .large-button {
+            width: 100%;
+            height: 50px;
+            font-size: large;
+            border-radius: 12px;
+            background: #3D91F2;
+            border: 0;
+            color: #fff;
+            margin-top: 10px;
+            /* drop-shadow / button-primary */
+            box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.04);
+        }
+        .mian1 {
+            max-width: 800px;
+            margin: auto;
+            background-color: aliceblue;
+            margin: 0 auto;
+            padding: 20px 20px;
+            border-radius: 20px;
+        }
+        .large-button:active {
+            background: #2B84EC;
+        }
+        .responseDisplay {
+            margin-top: 20px;
+            border: 1px solid #D9D9D9;
+            padding: 10px;
+            height: 100px;
+            overflow: auto;
+            background-color: #fafafa;
+            border-radius: 12px;
+            color: rgba(0,0,0,0.65);
+            overflow-y: scroll;
+        }
+        #sendButton, .sendButton{
+            width: 200px;
+            height: 45px;
+            font-size: large;
+            border-radius: 12px;
+            background: #3D91F2;
+            border: 0;
+            color: #fff;
+            /* drop-shadow / button-primary */
+            box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.04);
+            vertical-align: top
+        }
+        #sendButton:active {
+            background: #2B80E1;
+        }
+        .sendButton:active {
+            background: #2B80E1;
+        }
+        .bu-group button {
+            height: 45px;
+            border-radius: 12px;
+            border: 1px solid #D9D9D9;
+            background: #FFF;
+            padding: 0 40px;
+            margin-right: 12px;
+            box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.04);
+        }
+        .bu-group button:active {
+            background: #DCDCDC;
+        }
+
+        .links {
+            display: flex; /* 横向排列链接 */
+            justify-content: flex-end; /* 右对齐 */
+            align-items: center; /* 垂直居中 */
+            margin-left: 24px; /* 与标题的间距 */
+            min-width: 348px;
+        }
+
+        #header-container {
+            display: flex; /* 让标题和链接在同一行展示 */
+            align-items: center; /* 垂直居中对齐 */
+            justify-content: space-between; /* 使标题和链接左右两边对齐 */
+        }
+        .link {
+            margin-right: 12px;
+            color: #FFF;
+            text-decoration: none;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+        .link:hover {
+            background-color: rgba(0,0,0,0.2);
+        }
+        p {
+            text-align: center;
+        }
+        input {
+            padding: 0 10px;
+        }
+    </style>
+</head>
+<body body style="background-color: #335986;">
+    <h1 style="color: #fff;margin: 32px 32px;display: block;text-align: center;">被拒原因查询</h1>
+    <div class="mian1">
+        <input type="text" id="inputA" placeholder="输入ID，用逗号、空格或回车隔开" style="width:100%;height: 40px;border-radius: 12px;border: 1px solid #D9D9D9;box-sizing: border-box;margin-bottom: 20px;">
+        <input type="text" id="inputB" placeholder="输入Token" style="width:100%;height: 40px;border-radius: 12px;border: 1px solid #D9D9D9;box-sizing: border-box;">
+        <p>可以在<a target="_blank" href="https://bi-ap-southeast-1.data.aliyun.com/token3rd/dashboard/view/pc.htm?pageId=fa0fd46c-c830-4553-852a-b089a5843ae9&accessToken=646931f4a54b4d6e995cae668711cd28&dd_orientation=auto">这里</a>的 TOKEN tab页查询指定TOKEN</p><p>注意：不是所有的被拒原因都能被查询到</p>
+        <button id="queryButton" class="large-button">查询</button>
+        <div id="result"></div>
+    </div>
+    <script>
+    document.getElementById('queryButton').addEventListener('click', function() {
+        const ids = document.getElementById('inputA').value.split(/[, \n]+/);
+        const token = document.getElementById('inputB').value;
+        const result = document.getElementById('result');
+        result.innerHTML = ''; // 清空之前的结果
+        ids.forEach(id => {
+            fetch(`https://graph.facebook.com/v17.0/${id}?fields=ad_review_feedback,issues_info&access_token=${token}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(`Response for ID ${id}:`, data); // 在控制台打印所有返回信息
+                    if (data.error) {
+                        result.innerHTML = `${id}: TOKEN或ID无效<br><br>` + result.innerHTML; // 出现错误时显示信息
+                    } else if (data.ad_review_feedback) {
+                        const feedback = JSON.stringify(data.ad_review_feedback.global, null, 2); // 格式化 JSON 输出
+                        result.innerHTML = `${id}: ${feedback}<br><br>` + result.innerHTML; // 新信息添加在最上面
+                    } else {
+                        result.innerHTML = `${id}: 未查询到相关内容：<br><br>` + result.innerHTML; // 新信息添加在最上面
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    });
+    </script>
+</body>
+</html>
