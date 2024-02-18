@@ -1,7 +1,7 @@
 function processText() {
     let text = document.getElementById('paragraphInput').value;
     let groups = text.split(/\n\s*\n/); // 根据空行分割成组
-    let additionalText = "Diaa\nGames/toys\nHOME,POST,POST,POST,ABOUT\n"; // 每组后附加的文本
+    let additionalText = "Diaa\nGames/toys\nHOME,POST,POST,POST,ABOUT\n425199327715397\n"; // 每组后附加的文本
 
     let processedGroups = groups.map(group => {
         let ids = group.split(/\s+/).filter(part => /^\d{4,}$/.test(part));
@@ -25,7 +25,7 @@ function processText() {
 
     let finalText = processedGroups.join('\n\n').replace(/^\s+/gm, ''); // 去除每行开头的空格并在组间添加空行分割
     finalText = finalText.replace(/\n\nDiaa/g, '\nDiaa'); // 删除"Diaa"前的空行
-    finalText = finalText.replace(/ABOUT\n/g, 'ABOUT\n\n'); // 在每个"ABOUT"后面增加空行
+    finalText = finalText.replace(/425199327715397\n/g, '425199327715397\n\n'); // 在每个"ABOUT"后面增加空行
     document.getElementById('resultInput').value = finalText.trim(); // 进一步确保去除首尾空格
     togglePopup();
 }
